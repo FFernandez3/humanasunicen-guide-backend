@@ -1,0 +1,9 @@
+version: '3.1'
+services:
+  major:
+    container_name: major
+    image: mongo
+    ports:
+      - "27017:27017" # puerto para las solicitudes HTTP = {configurar localmente en .env: yo (Manu) lo tengo en 8001}
+    restart: always
+    command: mongod --noauth
