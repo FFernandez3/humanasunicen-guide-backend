@@ -16,6 +16,4 @@ public class Major {
     @MongoId
     private String id;
     private String name;
-
-
 }
