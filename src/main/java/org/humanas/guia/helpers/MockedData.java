@@ -1,5 +1,6 @@
 package org.humanas.guia.helpers;
 
+import org.humanas.guia.dtos.AphorismDTO;
 import org.humanas.guia.dtos.MajorDTO;
 import org.humanas.guia.entities.Major;
 
@@ -21,5 +22,20 @@ public class MockedData {
         majors.add(m4);
         majors.add(m5);
         return majors;
+    }
+
+    public List<AphorismDTO> getAphorismsMocked(){
+        List<AphorismDTO> aphs = new ArrayList<>();
+        AphorismDTO a1 = new AphorismDTO("Karl Marx", "La lucha de clases es el motor de la historia");
+        AphorismDTO a2 = new AphorismDTO("Max Weber", "No hay Estado sin una burocracia profesional");
+        AphorismDTO a3 = new AphorismDTO("Juan Domingo Perón", "La única verdad es la realidad");
+        AphorismDTO a4 = new AphorismDTO("Martin Heiddeger", "La esencia de la libertad se encuentra en la verdad");
+        AphorismDTO a5 = new AphorismDTO("Friedrich Nietzsche", "No hay mayor desgracia que el de ser un hombre debil");
+        aphs.add(a1);
+        aphs.add(a2);
+        aphs.add(a3);
+        aphs.add(a4);
+        aphs.add(a5);
+        return aphs;
     }
 }
