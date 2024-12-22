@@ -10,5 +10,5 @@ import java.util.List;
 public class SubjectRequestDTO {
     private String name;
     private Integer year;
-    private List<String> majorsIds = new ArrayList<>();
+    private List<String> majorsIds;
 }

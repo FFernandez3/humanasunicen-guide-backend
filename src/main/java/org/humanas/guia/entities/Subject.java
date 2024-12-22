@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.humanas.guia.dtos.SubjectRequestDTO;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
@@ -23,10 +22,10 @@ public class Subject {
     private Integer year;
     private List<String> majorsIds = new ArrayList<>();
 
-    public Subject(SubjectRequestDTO requestDTO){
-        this.name=requestDTO.getName();
-        this.year=requestDTO.getYear();
-        this.majorsIds = requestDTO.getMajorsIds() != null ? new ArrayList<>(requestDTO.getMajorsIds()) : new ArrayList<>();
+    public Subject(String name, int year, List<String>majorsIds){
+        this.name=name;
+        this.year=year;
+        this.majorsIds = majorsIds != null ? new ArrayList<>(majorsIds) : new ArrayList<>();
     }
 
 }

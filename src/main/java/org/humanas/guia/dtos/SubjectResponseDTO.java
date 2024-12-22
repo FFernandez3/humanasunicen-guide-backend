@@ -13,12 +13,6 @@ public class SubjectResponseDTO {
     private String id;
     private String name;
     private Integer year;
-    private List<String> majorsIds = new ArrayList<>();
+    private List<String> majorsIds;
 
-    public SubjectResponseDTO(Subject entity){
-        this.id=entity.getId();
-        this.name= entity.getName();
-        this.year=entity.getYear();
-        this.majorsIds = entity.getMajorsIds() != null ? new ArrayList<>(entity.getMajorsIds()) : new ArrayList<>();
-    }
 }
