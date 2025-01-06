@@ -28,10 +28,10 @@ public class AIController {
         return ResponseEntity.ok(aphs);
     }
 
-    @GetMapping("/aph") //Andando
+    @GetMapping("/getAphorism") //Andando
     public ResponseEntity<?> getTextGeneratedByAIAgent() {
-        String textoGenerado = AIservice.textGeneratedByAIAgent();
-        return ResponseEntity.ok(textoGenerado);
+        AphorismDTO aph = AIservice.textGeneratedByAIAgent();
+        return ResponseEntity.ok(aph);
 //        List<AphorismDTO> aphs = new MockedData().getAphorismsMocked();
 //        int random = (int) (Math.random() * aphs.size());
 //        if (aphs.isEmpty()) {

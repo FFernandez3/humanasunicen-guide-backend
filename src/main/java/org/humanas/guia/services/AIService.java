@@ -1,12 +1,12 @@
 package org.humanas.guia.services;
 
 import lombok.RequiredArgsConstructor;
+import org.humanas.guia.dtos.AphorismDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Collections;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -14,15 +14,16 @@ public class AIService {
     private final RestTemplate restTemplate = new RestTemplate();
     private final String baseUrl = "http://localhost:8000";
 
-    public String textGeneratedByAIAgent() {
+    public AphorismDTO textGeneratedByAIAgent() {
         // GET request
-        ResponseEntity<String> response = restTemplate.getForEntity(
-                baseUrl + "/test", // Full URL
-                String.class          // Response type
+        ResponseEntity<?> response = restTemplate.getForEntity(
+                baseUrl + "/getAphorism", // Full URL
+                Object.class          // Response type
         );
-
-        // Return the response body
-        return response.getBody();
+        LinkedHashMap resp = (LinkedHashMap) response.getBody();
+        AphorismDTO aph = new AphorismDTO((String) resp.get("author"), (String) resp.get("aphorism"));
+        //AphorismDTO aph = new AphorismDTO(resp.author, resp.aphorism);
+        return aph;
     }
 
 }
