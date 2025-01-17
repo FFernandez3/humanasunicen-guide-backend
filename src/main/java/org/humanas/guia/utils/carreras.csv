@@ -1,0 +1,9 @@
+id,nombre,plan_estudios,perfil_profesional,alcances_titulo,anio_inicio
+1,historia,null,null,null,1975
+2,relaciones_internacionales,null,null,null,1997
+3,geografia,null,null,null,1974
+4,trabajo_social,null,null,null,1989
+5,diagnostico_y_gestion_ambiental,null,null,null,2003
+6,ciencias_de_la_educacion,null,null,null,1992
+7,turismo,null,null,null,2004
+8,educacion_inicial,null,null,null,1985

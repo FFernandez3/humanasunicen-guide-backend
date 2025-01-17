@@ -1,9 +1,32 @@
 version: '3.1'
+
 services:
-  major:
-    container_name: major
-    image: mongo
+  mongoBackend:
+    container_name: mongo_backend
+    image: mongo:latest
     ports:
-      - "27017:27017" # puerto para las solicitudes HTTP = {configurar localmente en .env: yo (Manu) lo tengo en 8001}
+      - "27017:27017" # Mapear puerto MongoDB
     restart: always
-    command: mongod --noauth
+    command: mongod --noauth # Deshabilitar autenticación (solo para desarrollo)
+
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: guiahumanas
+      #MYSQL_ROOT_PASSWORD: rootpassword
+      #MYSQL_USER: user
+      #MYSQL_PASSWORD: userpassword
+
+  phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      container_name: phpmyadmin_container
+      environment:
+        PMA_HOST: mysql
+        PMA_PORT: 3306
+        MYSQL_ROOT_PASSWORD: rootpassword
+      ports:
+        - "8080:80"
+
