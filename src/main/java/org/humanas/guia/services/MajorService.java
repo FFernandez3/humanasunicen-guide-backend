@@ -8,11 +8,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class MajorService {
 
-    @Qualifier("majorJpaRepositoryImpl")
     @Autowired
-    private final MajorRepository majorRepository;
+    private MajorRepository majorRepository;
 
-    public MajorService(@Qualifier("majorJpaRepositoryImpl") MajorRepository majorRepository) {
+    public MajorService(MajorRepository majorRepository) {
         this.majorRepository = majorRepository;
     }
 

@@ -13,13 +13,13 @@ import java.util.List;
 @Component
 public class DataLoaderHelper {
 
-    private final FileRepository fileRepository;
+    private FileRepository fileRepository;
 
-    private final MajorRepository majorRepository;
+    private MajorRepository majorRepository;
 
-    private final SubjectRepository subjectRepository;
+    private SubjectRepository subjectRepository;
 
-    public DataLoaderHelper(FileRepository fileRepository, @Qualifier("majorJpaRepositoryImpl") MajorRepository majorRepository, SubjectRepository subjectRepository) {
+    public DataLoaderHelper(FileRepository fileRepository, MajorRepository majorRepository, SubjectRepository subjectRepository) {
         this.fileRepository = fileRepository;
         this.majorRepository = majorRepository;
         this.subjectRepository = subjectRepository;
@@ -27,10 +27,10 @@ public class DataLoaderHelper {
 
     @Transactional
     public void loadCarreras() {
-        List<String[]> carreras = CSVReaderHelper.readCSV("/src/main/java/org/humanas/guia/utils/carreras.csv");
+        List<String[]> carreras = CSVReaderHelper.readCSV("src/main/java/org/humanas/guia/utils/carreras.csv");
+        System.out.println(carreras.size());
         for (String[] carrera : carreras.subList(1, carreras.size())) {
             Major m = new Major();
-//            p.setId(Long.parseLong(parada[0]));
             m.setName(carrera[1]);
             m.setPlanDeEstudios(null);
             m.setPerfil_profesional(null);

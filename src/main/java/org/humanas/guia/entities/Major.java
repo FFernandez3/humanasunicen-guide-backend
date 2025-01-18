@@ -4,38 +4,32 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.MongoId;
 import jakarta.persistence.*;
-import lombok.*;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity // Anotación para JPA
-@Document(collection = "Major") // Anotación para MongoDB
 public class Major {
 
-    @Id // Anotación JPA (Primary Key para PostgreSQL)
-    @MongoId // Anotación MongoDB (ID en Mongo)
-    @GeneratedValue(strategy = GenerationType.AUTO) // Solo para PostgreSQL
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false) // En PostgreSQL, este campo es obligatorio
+    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = true) // Opcional en PostgreSQL
+    @Column(nullable = true)
     private String planDeEstudios;
 
-    @Column(nullable = true) // Opcional en PostgreSQL
+    @Column(nullable = true)
     private String perfil_profesional;
 
-    @Column(nullable = true) // Opcional en PostgreSQL
+    @Column(nullable = true)
     private String alcances_titulo;
 
-    @Column // En PostgreSQL, este campo es obligatorio
+    @Column
     private int anio_inicio;
 }
 
