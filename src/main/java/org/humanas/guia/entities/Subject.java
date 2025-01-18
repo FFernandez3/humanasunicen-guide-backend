@@ -1,31 +1,44 @@
 package org.humanas.guia.entities;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.MongoId;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Document(collection = "Subject")
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@Entity
 public class Subject {
-   @MongoId
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private Integer year;
-    private List<String> majorsIds = new ArrayList<>();
+    @Column(nullable = false)
+    private Integer quarter;
+    @ManyToMany
+    @JoinTable(
+            name = "subject_major",
+            joinColumns = @JoinColumn(name = "subject_id"),
+            inverseJoinColumns = @JoinColumn(name = "major_id")
+    )
+    private List<Major> majors = new ArrayList<>();
 
-    public Subject(String name, int year, List<String>majorsIds){
-        this.name=name;
-        this.year=year;
-        this.majorsIds = majorsIds != null ? new ArrayList<>(majorsIds) : new ArrayList<>();
+    public Subject(String name, int year, int quarter, List<Major> majors) {
+        this.name = name;
+        this.year = year;
+        this.quarter = quarter;
+        this.majors=majors;
     }
 
 }

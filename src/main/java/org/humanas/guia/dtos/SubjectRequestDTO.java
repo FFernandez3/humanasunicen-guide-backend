@@ -10,5 +10,6 @@ import java.util.List;
 public class SubjectRequestDTO {
     private String name;
     private Integer year;
-    private List<String> majorsIds;
+    private Integer quarter;
+    private List<Long> majorsIds;
 }

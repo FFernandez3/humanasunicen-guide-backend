@@ -20,18 +20,22 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class SubjectControllerTest {
+
     @InjectMocks
     private SubjectController subjectController;
+
     @Mock
     private SubjectServiceImpl subjectService;
+
     private final ObjectMapper objectMapper = new ObjectMapper();
+
     @Test
     void getSubjectsByMajor_validId_returnListOfSubjects() {
         // Arrange
-        String idMajor = "123";
+        Long idMajor = 1L;
         List<SubjectResponseDTO> mockSubjects = List.of(
-                new SubjectResponseDTO("1eqa", "Historia mundial 1", 3, List.of(idMajor)),
-                new SubjectResponseDTO("233a", "Historia argentina", 1, List.of(idMajor))
+                new SubjectResponseDTO(1L, "Historia mundial 1", 3,2, List.of(idMajor)),
+                new SubjectResponseDTO(2L, "Historia argentina", 1, 1, List.of(idMajor))
         );
 
         when(subjectService.getSubjectsByMajorId(idMajor)).thenReturn(mockSubjects);
@@ -46,11 +50,12 @@ class SubjectControllerTest {
 
         verify(subjectService, times(1)).getSubjectsByMajorId(idMajor);
     }
+
     @Test
     void save_validRequest_returnSavedSubject() {
         // Arrange
-        SubjectRequestDTO requestDTO = new SubjectRequestDTO("Pedagogia", 1, List.of("123q"));
-        SubjectResponseDTO savedSubject = new SubjectResponseDTO("1", "Pedagogia",1,List.of("123q"));
+        SubjectRequestDTO requestDTO = new SubjectRequestDTO("Pedagogia", 1,1, List.of(2L));
+        SubjectResponseDTO savedSubject = new SubjectResponseDTO(1L, "Pedagogia", 1,2, List.of(2L));
 
         when(subjectService.save(requestDTO)).thenReturn(savedSubject);
 
@@ -62,10 +67,9 @@ class SubjectControllerTest {
         assertThat(response.getBody()).isNotNull();
         assertThat(response.getBody().getId()).isEqualTo(savedSubject.getId());
         assertThat(response.getBody().getName()).isEqualTo(savedSubject.getName());
+        assertThat(response.getBody().getMajorsIds()).isEqualTo(savedSubject.getMajorsIds());
 
         verify(subjectService, times(1)).save(requestDTO);
     }
-
-
-
 }
+

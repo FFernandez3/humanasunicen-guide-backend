@@ -10,9 +10,10 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 public class SubjectResponseDTO {
-    private String id;
+    private Long id;
     private String name;
     private Integer year;
-    private List<String> majorsIds;
+    private Integer quarter;
+    private List<Long> majorsIds;
 
 }
