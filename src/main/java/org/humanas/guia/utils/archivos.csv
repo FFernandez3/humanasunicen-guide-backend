@@ -1,11 +1,11 @@
 id,nombre,instancia,url,tipo,llamado,id_catedra
-1,Parcial Historia de América 1,parcial,http://example.com/parcial_historia1.pdf,examen,julio,1
-2,Resumen Historia de América,null,http://example.com/resumen_historia.pdf,resumen,null,1
-3,Final Relaciones Internacionales,final,http://example.com/final_ri.pdf,examen,diciembre,2
-4,Resumen Geografía Física,null,http://example.com/resumen_geografia.pdf,resumen,null,3
-5,Recuperatorio Trabajo Social,recuperatorio,http://example.com/recuperatorio_ts.pdf,examen,agosto,4
-6,Resumen Gestión Ambiental,null,http://example.com/resumen_ambiental.pdf,resumen,null,5
-7,Parcial Filosofía de la Educación,parcial,http://example.com/parcial_filosofia.pdf,examen,septiembre,6
-8,Resumen Turismo Sustentable,null,http://example.com/resumen_turismo.pdf,resumen,null,7
-9,Final Psicología Infantil,final,http://example.com/final_psicologia.pdf,examen,noviembre,8
-10,Guía Sociología Aplicada,null,http://example.com/guia_sociologia.pdf,otro,null,9
+1,Parcial Historia de América 1,parcial,http://example.com/parcial_historia1.pdf,RECUPERATORIO,julio,1
+2,Resumen Historia de América,null,http://example.com/resumen_historia.pdf,RESUMEN,null,1
+3,Final Relaciones Internacionales,final,http://example.com/final_ri.pdf,PREFINAL,diciembre,2
+4,Resumen Geografía Física,null,http://example.com/resumen_geografia.pdf,PREFINAL,null,3
+5,Recuperatorio Trabajo Social,recuperatorio,http://example.com/recuperatorio_ts.pdf,RECUPERATORIO,agosto,4
+6,Resumen Gestión Ambiental,null,http://example.com/resumen_ambiental.pdf,RESUMEN,null,5
+7,Parcial Filosofía de la Educación,parcial,http://example.com/parcial_filosofia.pdf,FINAL,septiembre,6
+8,Resumen Turismo Sustentable,null,http://example.com/resumen_turismo.pdf,RESUMEN,null,7
+9,Final Psicología Infantil,final,http://example.com/final_psicologia.pdf,FINAL,noviembre,8
+10,Guía Sociología Aplicada,null,http://example.com/guia_sociologia.pdf,PARCIAL,null,9

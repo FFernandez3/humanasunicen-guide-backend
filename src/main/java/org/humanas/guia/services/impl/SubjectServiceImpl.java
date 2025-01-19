@@ -20,6 +20,9 @@ public class SubjectServiceImpl implements SubjectService {
     private final SubjectRepository repository;
     private final MajorRepository majorRepository;
 
+    public List<Subject> getAllSubjects(){
+        return this.repository.findAll();
+    }
     @Override
     public SubjectResponseDTO save(SubjectRequestDTO requestDTO) {
         List<Major> majors = majorRepository.findAllById(requestDTO.getMajorsIds());

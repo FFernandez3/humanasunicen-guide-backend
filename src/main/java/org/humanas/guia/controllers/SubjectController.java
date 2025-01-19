@@ -3,6 +3,7 @@ package org.humanas.guia.controllers;
 import lombok.RequiredArgsConstructor;
 import org.humanas.guia.dtos.SubjectRequestDTO;
 import org.humanas.guia.dtos.SubjectResponseDTO;
+import org.humanas.guia.entities.Subject;
 import org.humanas.guia.services.SubjectService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,11 @@ import java.util.List;
 public class SubjectController {
     private final SubjectService service;
 
+    @GetMapping
+    public ResponseEntity<List<Subject>> getAllSubjects(){
+        List<Subject> subjects = service.getAllSubjects();
+        return ResponseEntity.ok(subjects);
+    }
     @GetMapping("/major/{idMajor}")
     public ResponseEntity<List<SubjectResponseDTO>> getSubjectsByMajor( @PathVariable Long idMajor){
         List<SubjectResponseDTO> list=service.getSubjectsByMajorId(idMajor);

@@ -1,15 +1,11 @@
 package org.humanas.guia.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.humanas.guia.enums.FileType;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 
 import java.time.LocalDate;
@@ -23,10 +19,14 @@ import java.time.LocalDate;
 public class File {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private Long id;
     private String name;
+    @Column(nullable = false)
+    private String instance;
     private String url;
-    private String subjectId;
+    private Long subjectId;
     private FileType type;
     private LocalDate uploadDate;
+    @Column(nullable = false)
+    private String month;
 }

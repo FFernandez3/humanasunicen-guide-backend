@@ -21,5 +21,7 @@ public class GuiaApplication {
     @PostConstruct
     public void init() throws ParseException {
         dataLoaderHelper.loadCarreras();
+        dataLoaderHelper.loadMaterias();
+        dataLoaderHelper.loadArchivos();
     }
 }

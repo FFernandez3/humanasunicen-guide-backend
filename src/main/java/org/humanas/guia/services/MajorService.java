@@ -1,9 +1,12 @@
 package org.humanas.guia.services;
 
+import org.humanas.guia.entities.Major;
 import org.humanas.guia.repositories.MajorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class MajorService {
@@ -15,5 +18,7 @@ public class MajorService {
         this.majorRepository = majorRepository;
     }
 
-    // Usa majorRepository para operaciones de datos
+    public List<Major> getAllMajors(){
+        return this.majorRepository.findAll();
+    }
 }

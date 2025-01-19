@@ -17,14 +17,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/majors")
 public class MajorController {
-
     @Autowired
     MajorService majorService;
 
     @GetMapping //Andando
-    public ResponseEntity<List<MajorDTO>> getAllMajors() {
+    public ResponseEntity<List<Major>> getAllMajors() {
         //List<Major> majors = majorService.getAll();
-        List<MajorDTO> majors = new MockedData().getMajorsMocked();
+        List<Major> majors = majorService.getAllMajors();
         if (majors.isEmpty()) {
             return  ResponseEntity.noContent().build();
         }
