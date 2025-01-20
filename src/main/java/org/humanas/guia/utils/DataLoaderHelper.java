@@ -7,11 +7,14 @@ import org.humanas.guia.enums.FileType;
 import org.humanas.guia.repositories.FileRepository;
 import org.humanas.guia.repositories.MajorRepository;
 import org.humanas.guia.repositories.SubjectRepository;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import jakarta.transaction.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Component
 public class DataLoaderHelper {
@@ -53,8 +56,21 @@ public class DataLoaderHelper {
             s.setName(cat[1]);
             s.setYear(Integer.valueOf(cat[2]));
             s.setQuarter(Integer.valueOf(cat[3]));
+            s.setMajors(loadCarrerasMateria(Long.valueOf(cat[0])));
             subjectRepository.save(s);
         }
+    }
+
+    public List<Major> loadCarrerasMateria(Long idMateria){
+        List<String[]> materiasCarreras = CSVReaderHelper.readCSV("src/main/java/org/humanas/guia/utils/catedra_carrera.csv");
+        List<Major> carrerasParaMateria = new ArrayList<>();
+        for (String[] mC : materiasCarreras.subList(1, materiasCarreras.size())) {
+            if (Objects.equals(idMateria, Long.valueOf(mC[1]))){
+                Optional<Major> m = majorRepository.findById(Long.valueOf(mC[0]));
+                m.ifPresent(carrerasParaMateria::add);
+            }
+        }
+        return carrerasParaMateria;
     }
 
     @Transactional
