@@ -1,6 +1,8 @@
 package org.humanas.guia.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.humanas.guia.dtos.FileMonthDTO;
+import org.humanas.guia.dtos.FileTypeDTO;
 import org.humanas.guia.entities.File;
 import org.humanas.guia.services.FileService;
 import org.humanas.guia.services.SubjectService;
@@ -21,5 +23,17 @@ public class FileController {
     public ResponseEntity<List<File>> getAllFiles(){
         List<File> files = this.fileService.getAllFiles();
         return ResponseEntity.ok(files);
+    }
+
+    @GetMapping("/types")
+    public ResponseEntity<List<FileTypeDTO>> getTypesOfFiles(){
+        List<FileTypeDTO> types = this.fileService.getTypesOfFiles();
+        return ResponseEntity.ok(types);
+    }
+
+    @GetMapping("/months")
+    public ResponseEntity<List<FileMonthDTO>> getMonthsOfFiles(){
+        List<FileMonthDTO> months = this.fileService.getMonthsOfFiles();
+        return ResponseEntity.ok(months);
     }
 }

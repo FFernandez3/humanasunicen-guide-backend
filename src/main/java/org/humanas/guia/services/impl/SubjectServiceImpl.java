@@ -3,6 +3,7 @@ package org.humanas.guia.services.impl;
 import lombok.RequiredArgsConstructor;
 import org.humanas.guia.dtos.SubjectRequestDTO;
 import org.humanas.guia.dtos.SubjectResponseDTO;
+import org.humanas.guia.dtos.SubjectYearDTO;
 import org.humanas.guia.entities.Major;
 import org.humanas.guia.entities.Subject;
 import org.humanas.guia.mappers.SubjectMapper;
@@ -11,7 +12,12 @@ import org.humanas.guia.repositories.SubjectRepository;
 import org.humanas.guia.services.SubjectService;
 import org.springframework.stereotype.Service;
 
+import java.time.Year;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
 @Service
@@ -35,5 +41,26 @@ public class SubjectServiceImpl implements SubjectService {
     public List<SubjectResponseDTO> getSubjectsByMajorId(Long idMajor) {
         List<Subject> subjects = repository.findAllByMajorsId(idMajor);
         return SubjectMapper.subjectListToSubjectResponseDTOList(subjects);
+    }
+
+    public List<SubjectYearDTO> getAllYearsForSubject(Long idSubject){
+        List<SubjectYearDTO> subjectYears = new ArrayList<>();
+        Optional<Subject> s = this.repository.findById(idSubject);
+        if (s.isPresent()) {
+            Subject sub = s.get();
+            Integer year = sub.getYear();
+            int anioActual = Year.now().getValue(); // Año actual
+
+            // Generar la lista de años
+            List<Integer> listaAnios = IntStream.rangeClosed(year, anioActual)
+                    .boxed()
+                    .collect(Collectors.toList());
+
+            for (Integer anio : listaAnios){
+                SubjectYearDTO sYD = new SubjectYearDTO(anio);
+                subjectYears.add(sYD);
+            }
+        }
+        return subjectYears;
     }
 }
