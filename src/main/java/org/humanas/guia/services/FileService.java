@@ -1,6 +1,7 @@
 package org.humanas.guia.services;
 
 import org.humanas.guia.dtos.FileMonthDTO;
+import org.humanas.guia.dtos.FileRequestDTO;
 import org.humanas.guia.dtos.FileTypeDTO;
 import org.humanas.guia.entities.File;
 import org.humanas.guia.enums.FileMonth;
@@ -10,6 +11,7 @@ import org.humanas.guia.repositories.MajorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,5 +53,10 @@ public class FileService {
             fileMonths.add(fMD);
         }
         return fileMonths;
+    }
+
+    public String saveFile(MultipartFile file, String carrera, String catedra, FileType tipo, Integer anio, String llamado){
+        System.out.println("el archivo subido: " + file);
+        return "todo piolita";
     }
 }

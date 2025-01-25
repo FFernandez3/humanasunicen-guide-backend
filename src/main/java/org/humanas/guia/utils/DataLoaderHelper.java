@@ -79,11 +79,10 @@ public class DataLoaderHelper {
         for (String[] arch : files.subList(1, files.size())) {
             File f = new File();
             f.setName(arch[1]);
-            f.setInstance(arch[2]);
-            f.setUrl(arch[3]);
-            f.setType(FileType.valueOf(arch[4]));
-            f.setMonth(arch[5]); //llamado
-            f.setSubjectId(Long.valueOf(arch[6]));
+            f.setUrl(arch[2]);
+            f.setType(FileType.valueOf(arch[3]));
+            f.setMonth(arch[4]); //llamado
+            f.setSubjectId(Long.valueOf(arch[5]));
             f.setUploadDate(null);
             fileRepository.save(f);
         }

@@ -4,12 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.humanas.guia.dtos.FileMonthDTO;
 import org.humanas.guia.dtos.FileTypeDTO;
 import org.humanas.guia.entities.File;
+import org.humanas.guia.enums.FileType;
 import org.humanas.guia.services.FileService;
-import org.humanas.guia.services.SubjectService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -35,5 +34,16 @@ public class FileController {
     public ResponseEntity<List<FileMonthDTO>> getMonthsOfFiles(){
         List<FileMonthDTO> months = this.fileService.getMonthsOfFiles();
         return ResponseEntity.ok(months);
+    }
+
+    @PostMapping
+    public ResponseEntity<?> saveFile(@RequestParam("file") MultipartFile file,
+                                      @RequestParam("carrera") String carrera,
+                                      @RequestParam("catedra") String catedra,
+                                      @RequestParam("tipo") FileType tipo,
+                                      @RequestParam(value = "anio", required = false) Integer anio,
+                                      @RequestParam(value = "llamado", required = false) String llamado){
+        String response = this.fileService.saveFile(file, carrera, catedra, tipo, anio, llamado);
+        return ResponseEntity.ok(response);
     }
 }

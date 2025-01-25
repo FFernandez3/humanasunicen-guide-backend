@@ -21,8 +21,6 @@ public class File {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    @Column(nullable = false)
-    private String instance;
     private String url;
     private Long subjectId;
     private FileType type;
