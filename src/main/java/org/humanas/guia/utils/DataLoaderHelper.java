@@ -32,9 +32,14 @@ public class DataLoaderHelper {
     }
 
     @Transactional
+    public boolean areTablesEmpty(){
+        return majorRepository.count() == 0 && subjectRepository.count() == 0 && fileRepository.count() == 0;
+    }
+
+    @Transactional
     public void loadCarreras() {
         List<String[]> carreras = CSVReaderHelper.readCSV("src/main/java/org/humanas/guia/utils/carreras.csv");
-        System.out.println(carreras.size());
+        System.out.println("Cargando datos de carreras");
         for (String[] carrera : carreras.subList(1, carreras.size())) {
             Major m = new Major();
             m.setName(carrera[1]);
@@ -49,7 +54,7 @@ public class DataLoaderHelper {
     @Transactional
     public void loadMaterias() {
         List<String[]> catedras = CSVReaderHelper.readCSV("src/main/java/org/humanas/guia/utils/catedras.csv");
-        System.out.println(catedras.size());
+        System.out.println("Cargando datos de materias");
         for (String[] cat : catedras.subList(1, catedras.size())) {
             Subject s = new Subject();
             System.out.println(cat[1]);
@@ -76,6 +81,7 @@ public class DataLoaderHelper {
     @Transactional
     public void loadArchivos() {
         List<String[]> files = CSVReaderHelper.readCSV("src/main/java/org/humanas/guia/utils/archivos.csv");
+        System.out.println("Cargando datos de archivos");
         for (String[] arch : files.subList(1, files.size())) {
             File f = new File();
             f.setName(arch[1]);
@@ -85,14 +91,6 @@ public class DataLoaderHelper {
             f.setSubjectId(Long.valueOf(arch[5]));
             f.setUploadDate(null);
             fileRepository.save(f);
-        }
-    }
-
-    private Integer parseInteger(String value, int defaultValue) {
-        try {
-            return Integer.valueOf(value);
-        } catch (NumberFormatException e) {
-            return defaultValue; // Retorna un valor predeterminado si hay un error
         }
     }
 }

@@ -56,7 +56,8 @@ public class FileService {
     }
 
     public String saveFile(MultipartFile file, String carrera, String catedra, FileType tipo, Integer anio, String llamado){
-        System.out.println("el archivo subido: " + file);
-        return "todo piolita";
+        System.out.println("el archivo subido: " + file.getName());
+        if (!file.getName().equals("")) return "todo piolita";
+        else return "nada salio como esperado";
     }
 }

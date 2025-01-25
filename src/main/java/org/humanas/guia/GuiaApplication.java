@@ -20,8 +20,13 @@ public class GuiaApplication {
 
     @PostConstruct
     public void init() throws ParseException {
-        dataLoaderHelper.loadCarreras();
-        dataLoaderHelper.loadMaterias();
-        dataLoaderHelper.loadArchivos();
+        if (dataLoaderHelper.areTablesEmpty()){
+            dataLoaderHelper.loadCarreras();
+            dataLoaderHelper.loadMaterias();
+            dataLoaderHelper.loadArchivos();
+            System.out.println("Finalizada carga de datos");
+        } else {
+            System.out.println("La base ya tiene registros. No se ejecutaron los scripts de carga de datos");
+        }
     }
 }
