@@ -2,6 +2,7 @@ package org.humanas.guia.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.humanas.guia.dtos.FileMonthDTO;
+import org.humanas.guia.dtos.FileTableDTO;
 import org.humanas.guia.dtos.FileTypeDTO;
 import org.humanas.guia.entities.File;
 import org.humanas.guia.enums.FileType;
@@ -45,5 +46,10 @@ public class FileController {
                                       @RequestParam(value = "llamado", required = false) String llamado){
         String response = this.fileService.saveFile(file, carrera, catedra, tipo, anio, llamado);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/table")
+    public ResponseEntity<List<FileTableDTO>> getAllFilesForTable(){
+        return ResponseEntity.ok(this.fileService.getAllFilesForTable());
     }
 }

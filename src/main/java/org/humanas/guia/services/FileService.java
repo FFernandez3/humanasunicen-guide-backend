@@ -2,6 +2,7 @@ package org.humanas.guia.services;
 
 import org.humanas.guia.dtos.FileMonthDTO;
 import org.humanas.guia.dtos.FileRequestDTO;
+import org.humanas.guia.dtos.FileTableDTO;
 import org.humanas.guia.dtos.FileTypeDTO;
 import org.humanas.guia.entities.File;
 import org.humanas.guia.enums.FileMonth;
@@ -16,15 +17,16 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
 public class FileService {
     @Autowired
-    private FileRepository filerepo;
+    private FileRepository fileRepository;
 
     public List<File> getAllFiles(){
-        return this.filerepo.findAll();
+        return this.fileRepository.findAll();
     }
 
     public List<FileTypeDTO> getTypesOfFiles() {
@@ -59,5 +61,9 @@ public class FileService {
         System.out.println("el archivo subido: " + file.getName());
         if (!file.getName().equals("")) return "todo piolita";
         else return "nada salio como esperado";
+    }
+
+    public List<FileTableDTO> getAllFilesForTable(){
+        return this.fileRepository.getAllFilesForTable();
     }
 }
