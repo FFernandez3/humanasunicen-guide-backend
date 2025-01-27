@@ -37,7 +37,7 @@ class SubjectServiceImplTest {
         // Arrange
         List<Long> majorsIds = List.of(1L);
         SubjectRequestDTO requestDTO = new SubjectRequestDTO("Psicologia", 2, 1, majorsIds);
-        Major major = new Major(1L, "Psicologia", "Plan A", "Perfil A", "Alcance A", 2020);
+        Major major = new Major(1L, "Psicologia", "www.page.com", 2020);
         List<Major> majors = List.of(major);
 
         Subject entityToSave = new Subject("Psicologia", 2, 1, majors);
@@ -74,7 +74,7 @@ class SubjectServiceImplTest {
     void getSubjectsByMajorId_validId_returnListOfSubjects() {
         // Arrange
         Long majorId = 1L;
-        Major major = new Major(majorId, "Psicologia", "Plan A", "Perfil A", "Alcance A", 2020);
+        Major major = new Major(majorId, "Psicologia", "www.page.com", 2020);
         List<Subject> subjects = List.of(
                 new Subject("Didactica", 2, 1, List.of(major)),
                 new Subject("Historia", 3, 1, List.of(major))

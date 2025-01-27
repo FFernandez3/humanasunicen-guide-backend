@@ -21,13 +21,13 @@ public class Major {
     private String name;
 
     @Column(nullable = true)
-    private String planDeEstudios;
+    private String officialPage;
 
-    @Column(nullable = true)
-    private String perfil_profesional;
+    //@Column(nullable = true)
+    //private String perfil_profesional;
 
-    @Column(nullable = true)
-    private String alcances_titulo;
+    //@Column(nullable = true)
+    //private String alcances_titulo;
 
     @Column
     private int anio_inicio;

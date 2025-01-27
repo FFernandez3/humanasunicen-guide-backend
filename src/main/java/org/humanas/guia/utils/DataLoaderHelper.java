@@ -43,10 +43,10 @@ public class DataLoaderHelper {
         for (String[] carrera : carreras.subList(1, carreras.size())) {
             Major m = new Major();
             m.setName(carrera[1]);
-            m.setPlanDeEstudios(null);
-            m.setPerfil_profesional(null);
-            m.setAlcances_titulo(null);
-            m.setAnio_inicio(Integer.parseInt(carrera[5]));
+            m.setOfficialPage(carrera[2]);
+            //m.setPerfil_profesional(null);
+            //m.setAlcances_titulo(null);
+            m.setAnio_inicio(Integer.parseInt(carrera[3]));
             majorRepository.save(m);
         }
     }

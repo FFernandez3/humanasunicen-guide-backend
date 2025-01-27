@@ -1,9 +1,9 @@
-id,nombre,plan_estudios,perfil_profesional,alcances_titulo,anio_inicio
-1,historia,null,null,null,1975
-2,relaciones_internacionales,null,null,null,1997
-3,geografia,null,null,null,1974
-4,trabajo_social,null,null,null,1989
-5,diagnostico_y_gestion_ambiental,null,null,null,2003
-6,ciencias_de_la_educacion,null,null,null,1992
-7,turismo,null,null,null,2004
-8,educacion_inicial,null,null,null,1985
+id,nombre,pagina_oficial,anio_inicio
+1,Historia,https://www.fch.unicen.edu.ar/lic-historia/,1975
+2,Relaciones Internacionales,https://www.fch.unicen.edu.ar/relaciones-internacionales/,1997
+3,Geografía,https://www.fch.unicen.edu.ar/geografia/,1974
+4,Trabajo Social,https://www.fch.unicen.edu.ar/trabajo-social/,1989
+5,Diagnóstico y Gestión Ambiental,https://www.fch.unicen.edu.ar/diagnostico-y-gestion-ambiental/,2003
+6,Ciencias de la Educación,https://www.fch.unicen.edu.ar/ciencias-de-la-educacion/,1992
+7,Turismo,https://www.fch.unicen.edu.ar/turismo/,2004
+8,Educación Inicial,https://www.fch.unicen.edu.ar/educacion-inicial/,1985
