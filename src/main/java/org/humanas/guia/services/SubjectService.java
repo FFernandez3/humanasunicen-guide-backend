@@ -12,4 +12,5 @@ public interface SubjectService {
     List<SubjectResponseDTO> getSubjectsByMajorId(Long idMajor);
     List<Subject> getAllSubjects();
     List<SubjectYearDTO> getAllYearsForSubject(Long idSubject);
+    List<String> getAllSubjectsNames();
 }

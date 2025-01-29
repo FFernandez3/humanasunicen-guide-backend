@@ -63,4 +63,8 @@ public class SubjectServiceImpl implements SubjectService {
         }
         return subjectYears;
     }
+
+    public List<String> getAllSubjectsNames(){
+        return this.repository.getAllSubjectsNames();
+    }
 }

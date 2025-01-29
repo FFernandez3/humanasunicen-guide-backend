@@ -29,18 +29,19 @@ public class FileService {
         return this.fileRepository.findAll();
     }
 
-    public List<FileTypeDTO> getTypesOfFiles() {
-        List<FileTypeDTO> fileTypes = new ArrayList<>();
+    public List<String> getTypesOfFiles() {
+        //List<FileTypeDTO> fileTypes = new ArrayList<>();
         List<String> types = Arrays.stream(FileType.values()) // values() --> Devuelve un array con todos los valores del enum en el orden en que fueron declarados.
         // Arrays.stream --> convierte el array en un Stream para trabajar con él de forma funcional.
                 .map(Enum::name) // Obtiene el nombre del enum como String
                 .collect(Collectors.toList()); // Convierte el Stream resultante en una lista
 
-        for (String type : types){
-            FileTypeDTO fTD = new FileTypeDTO(type);
-            fileTypes.add(fTD);
-        }
-        return fileTypes;
+//        for (String type : types){
+//            FileTypeDTO fTD = new FileTypeDTO(type);
+//            fileTypes.add(fTD);
+//        }
+        //return fileTypes;
+        return types;
     }
 
     public List<FileMonthDTO> getMonthsOfFiles(){ //será necesario agregar validación para verificar que el file sea != RESUMEN?

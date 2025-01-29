@@ -37,4 +37,9 @@ public class SubjectController {
     public ResponseEntity<SubjectResponseDTO>save(@RequestBody SubjectRequestDTO requestDTO){
         return ResponseEntity.status(201).body(service.save(requestDTO));
     }
+
+    @GetMapping("/names")
+    public ResponseEntity<List<String>> getAllSubjectsNames(){
+        return ResponseEntity.ok(this.service.getAllSubjectsNames());
+    }
 }

@@ -26,8 +26,8 @@ public class FileController {
     }
 
     @GetMapping("/types")
-    public ResponseEntity<List<FileTypeDTO>> getTypesOfFiles(){
-        List<FileTypeDTO> types = this.fileService.getTypesOfFiles();
+    public ResponseEntity<List<String>> getTypesOfFiles(){
+        List<String> types = this.fileService.getTypesOfFiles();
         return ResponseEntity.ok(types);
     }
 
