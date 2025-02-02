@@ -24,7 +24,7 @@ public class SubjectController {
         return ResponseEntity.ok(subjects);
     }
     @GetMapping("/major/{idMajor}")
-    public ResponseEntity<List<SubjectResponseDTO>> getSubjectsByMajor( @PathVariable Long idMajor){
+    public ResponseEntity<List<SubjectResponseDTO>> getSubjectsByMajor(@PathVariable Long idMajor){
         List<SubjectResponseDTO> list = service.getSubjectsByMajorId(idMajor);
         return ResponseEntity.ok(list);
     }
@@ -41,5 +41,10 @@ public class SubjectController {
     @GetMapping("/names")
     public ResponseEntity<List<String>> getAllSubjectsNames(){
         return ResponseEntity.ok(this.service.getAllSubjectsNames());
+    }
+
+    @GetMapping("/{idSubject}")
+    public ResponseEntity<String> getSubjectNameById(@PathVariable Long idSubject){
+        return ResponseEntity.ok(this.service.getSubjectNameById(idSubject));
     }
 }

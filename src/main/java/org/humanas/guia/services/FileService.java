@@ -5,10 +5,12 @@ import org.humanas.guia.dtos.FileRequestDTO;
 import org.humanas.guia.dtos.FileTableDTO;
 import org.humanas.guia.dtos.FileTypeDTO;
 import org.humanas.guia.entities.File;
+import org.humanas.guia.entities.Major;
 import org.humanas.guia.enums.FileMonth;
 import org.humanas.guia.enums.FileType;
 import org.humanas.guia.repositories.FileRepository;
 import org.humanas.guia.repositories.MajorRepository;
+import org.humanas.guia.repositories.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,8 @@ import java.util.stream.Collectors;
 public class FileService {
     @Autowired
     private FileRepository fileRepository;
+    @Autowired
+    private SubjectRepository subjectRepository;
 
     public List<File> getAllFiles(){
         return this.fileRepository.findAll();
@@ -65,6 +69,11 @@ public class FileService {
     }
 
     public List<FileTableDTO> getAllFilesForTable(){
-        return this.fileRepository.getAllFilesForTable();
+        List<FileTableDTO> resp = this.fileRepository.getAllFilesForTable();
+        for (FileTableDTO fDto : resp){
+            List<Major> majorsBySubject = this.subjectRepository.getMajorsBy(fDto.getId());
+            fDto.setMajors(majorsBySubject);
+        }
+        return resp;
     }
 }
