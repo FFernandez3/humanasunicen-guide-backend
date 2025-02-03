@@ -12,10 +12,7 @@ import java.util.stream.Collectors;
 public class SubjectMapper {
 
     public static SubjectResponseDTO subjectToSubjectResponseDTO(Subject entity) {
-        List<Long> majorsIds = entity.getMajors().stream()
-                .map(Major::getId)
-                .collect(Collectors.toList());
-        return new SubjectResponseDTO(entity.getId(), entity.getName(), entity.getYear(), entity.getQuarter(), majorsIds);
+        return new SubjectResponseDTO(entity.getId(), entity.getName(), entity.getYear(), entity.getQuarter());
     }
 
     public static List<SubjectResponseDTO> subjectListToSubjectResponseDTOList(List<Subject> entities) {
@@ -24,12 +21,8 @@ public class SubjectMapper {
                 .toList();
     }
 
-    public static Subject subjectRequestDTOToSubject(SubjectRequestDTO dto, List<Major> majors) {
-        List<Major> majorsList = majors.stream()
-                .filter(major -> dto.getMajorsIds().contains(major.getId()))
-                .collect(Collectors.toList());
-
-        return new Subject(dto.getName(), dto.getYear(), dto.getQuarter(), majorsList);
+    public static Subject subjectRequestDTOToSubject(SubjectRequestDTO dto) {
+        return new Subject(dto.getName(), dto.getYear(), dto.getQuarter());
     }
 }
 

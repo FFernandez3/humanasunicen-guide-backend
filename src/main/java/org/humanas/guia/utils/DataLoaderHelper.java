@@ -61,7 +61,6 @@ public class DataLoaderHelper {
             s.setName(cat[1]);
             s.setYear(Integer.valueOf(cat[2]));
             s.setQuarter(Integer.valueOf(cat[3]));
-            s.setMajors(loadCarrerasMateria(Long.valueOf(cat[0])));
             subjectRepository.save(s);
         }
     }

@@ -6,11 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity // Anotación para JPA
+@Entity
 public class Major {
 
     @Id
@@ -31,5 +33,13 @@ public class Major {
 
     @Column
     private int anio_inicio;
+
+    @ManyToMany
+    @JoinTable(
+            name = "subject_major",
+            joinColumns = @JoinColumn(name = "major_id"),
+            inverseJoinColumns = @JoinColumn(name = "subject_id")
+    )
+    private List<Subject> subjects;
 }
 

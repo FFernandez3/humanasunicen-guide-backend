@@ -14,6 +14,4 @@ public class SubjectResponseDTO {
     private String name;
     private Integer year;
     private Integer quarter;
-    private List<Long> majorsIds;
-
 }

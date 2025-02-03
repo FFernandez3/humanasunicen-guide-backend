@@ -23,11 +23,6 @@ public class SubjectController {
         List<Subject> subjects = service.getAllSubjects();
         return ResponseEntity.ok(subjects);
     }
-    @GetMapping("/major/{idMajor}")
-    public ResponseEntity<List<SubjectResponseDTO>> getSubjectsByMajor(@PathVariable Long idMajor){
-        List<SubjectResponseDTO> list = service.getSubjectsByMajorId(idMajor);
-        return ResponseEntity.ok(list);
-    }
     @GetMapping("/years/{idSubject}")
     public ResponseEntity<List<SubjectYearDTO>> getAllYearsForSubject(@PathVariable Long idSubject){
         List<SubjectYearDTO> yearsOfSubject = service.getAllYearsForSubject(idSubject);
