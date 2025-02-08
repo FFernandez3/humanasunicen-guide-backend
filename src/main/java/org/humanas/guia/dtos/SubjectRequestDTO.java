@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.List;
+
 @Getter
 @AllArgsConstructor
 public class SubjectRequestDTO {
@@ -16,4 +18,5 @@ public class SubjectRequestDTO {
     private Integer year;
     @NotNull(message = "El cuatrimestre es obligatorio.")
     private Integer quarter;
+    private List<Long> majorsIds;
 }

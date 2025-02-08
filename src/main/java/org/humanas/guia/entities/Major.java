@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -34,12 +35,21 @@ public class Major {
     @Column
     private int anio_inicio;
 
-    @ManyToMany
-    @JoinTable(
-            name = "subject_major",
-            joinColumns = @JoinColumn(name = "major_id"),
-            inverseJoinColumns = @JoinColumn(name = "subject_id")
-    )
+    @ManyToMany(mappedBy = "majors")
     private List<Subject> subjects;
+
+    public Major(String name, String officialPage, int anio_inicio) {
+        this.name = name;
+        this.officialPage = officialPage;
+        this.anio_inicio = anio_inicio;
+        this.subjects=new ArrayList<>();
+    }
+
+    public void addSubject(Subject subject) {
+        this.subjects.add(subject);
+        if (!subject.getMajors().contains(this)) {
+            subject.getMajors().add(this);
+        }
+    }
 }
 

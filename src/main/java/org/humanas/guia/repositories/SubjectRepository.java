@@ -11,13 +11,13 @@ import java.util.List;
 
 @Repository
 public interface SubjectRepository extends JpaRepository<Subject, Long> {
-   /* List<Subject> findAllByMajorsId(Long majorId);*/
+    List<Subject> findAllByMajorsId(Long majorId);
     @Query("SELECT s.name from Subject s")
     List<String> getAllSubjectsNames();
 
     @Query("SELECT s.name from Subject s WHERE s.id = :idSubject")
     String getSubjectNameById(Long idSubject);
 
-  /*  @Query("SELECT s.majors from Subject s WHERE s.id = :subjectId")
-    List<Major> getMajorsBy(Long subjectId);*/
+    @Query("SELECT s.majors from Subject s WHERE s.id = :subjectId")
+    List<Major> getMajorsBy(Long subjectId);
 }

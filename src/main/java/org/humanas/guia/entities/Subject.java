@@ -26,11 +26,19 @@ public class Subject {
     private Integer year;
     @Column(nullable = false)
     private Integer quarter;
+    @ManyToMany
+    @JoinTable(
+            name = "major_subject",
+            joinColumns = @JoinColumn(name = "subject_id"),
+            inverseJoinColumns = @JoinColumn(name = "major_id")
+    )
+    private List<Major> majors = new ArrayList<>();
 
-    public Subject(String name, int year, int quarter) {
+    public Subject(String name, int year, int quarter, List<Major> majors) {
         this.name = name;
         this.year = year;
         this.quarter = quarter;
+        this.majors=majors;
     }
 
 }

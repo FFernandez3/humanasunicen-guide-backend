@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface SubjectService {
     SubjectResponseDTO save(SubjectRequestDTO requestDTO);
+    List<SubjectResponseDTO> getSubjectsByMajorId(Long idMajor);
     List<Subject> getAllSubjects();
     List<SubjectYearDTO> getAllYearsForSubject(Long idSubject);
     List<String> getAllSubjectsNames();
