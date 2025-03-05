@@ -1,6 +1,6 @@
 package org.humanas.guia.utils;
 
-import org.humanas.guia.entities.File;
+import org.humanas.guia.entities.DocumentFile;
 import org.humanas.guia.entities.Major;
 import org.humanas.guia.entities.Subject;
 import org.humanas.guia.enums.FileType;
@@ -83,7 +83,7 @@ public class DataLoaderHelper {
         List<String[]> files = CSVReaderHelper.readCSV("src/main/java/org/humanas/guia/utils/archivos.csv");
         System.out.println("Cargando datos de archivos");
         for (String[] arch : files.subList(1, files.size())) {
-            File f = new File();
+            DocumentFile f = new DocumentFile();
             f.setName(arch[1]);
             f.setUrl(arch[2]);
             f.setType(FileType.valueOf(arch[3]));

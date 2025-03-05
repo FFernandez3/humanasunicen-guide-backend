@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-public class File {
+public class DocumentFile {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

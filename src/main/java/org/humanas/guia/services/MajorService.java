@@ -21,4 +21,9 @@ public class MajorService {
     public List<Major> getAllMajors(){
         return this.majorRepository.findAll();
     }
+
+    public List<String> getMajorsNames(){
+        return this.majorRepository.getMajorsNames();
+    }
+
 }

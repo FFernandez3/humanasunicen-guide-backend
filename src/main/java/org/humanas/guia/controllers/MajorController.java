@@ -29,4 +29,11 @@ public class MajorController {
         }
         return ResponseEntity.ok(majors);
     }
+
+    @GetMapping("/names")
+    public ResponseEntity<List<String>> getMajorsNames(){
+        List<String> majors = majorService.getMajorsNames();
+        return ResponseEntity.ok(majors);
+    }
+
 }
