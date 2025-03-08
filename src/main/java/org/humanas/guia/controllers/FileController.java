@@ -38,15 +38,21 @@ public class FileController {
         return ResponseEntity.ok(months);
     }
 
-    @PostMapping
+    @PostMapping("/save")
     public ResponseEntity<?> saveFile(@RequestParam("file") MultipartFile file,
                                       @RequestParam("carrera") String carrera,
                                       @RequestParam("catedra") String catedra,
                                       @RequestParam("tipo") FileType tipo,
                                       @RequestParam(value = "anio", required = false) Integer anio,
                                       @RequestParam(value = "llamado", required = false) String llamado) throws IOException {
-        String response = this.fileService.saveFile(file, carrera, catedra, tipo, anio, llamado);
-        return ResponseEntity.ok(response);
+        this.fileService.saveFile(file, carrera, catedra, tipo, anio, llamado);
+        return ResponseEntity.ok("response");
+    }
+
+    @PostMapping
+    public ResponseEntity<?> uploadBasic() throws IOException {
+        this.fileService.uploadBasic();
+        return ResponseEntity.ok("ok");
     }
 
     @GetMapping("/table")
