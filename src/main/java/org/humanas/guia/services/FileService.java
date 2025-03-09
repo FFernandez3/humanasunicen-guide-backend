@@ -5,6 +5,7 @@ import com.google.api.client.http.FileContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.drive.Drive;
+import com.google.api.services.drive.model.Permission;
 import org.humanas.guia.dtos.FileMonthDTO;
 import org.humanas.guia.dtos.FileTableDTO;
 import org.humanas.guia.entities.DocumentFile;
@@ -121,6 +122,13 @@ public class FileService {
             //chequeamos que haya salido ok la cosa
             File fetchedFile = service.files().get("1aFBxRJeQctYPBqCvuS4jkVYbKiyD2r1Z")
                     .setFields("id, name, mimeType, webViewLink, permissions")
+                    .execute();
+
+            Permission permission = new Permission()
+                    .setType("anyone")
+                    .setRole("reader");
+
+            service.permissions().create(fetchedFile.getId(), permission)
                     .execute();
 
             System.out.println("File ID: " + fetchedFile.getId());
