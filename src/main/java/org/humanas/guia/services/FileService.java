@@ -67,77 +67,77 @@ public class FileService {
         return fileMonths;
     }
 
-    public void saveFile(MultipartFile file, String carrera, String catedra, FileType tipo, Integer anio, String llamado) throws IOException {
+    private Drive generateDriveService() throws IOException {
         // Solicitar el scope DRIVE en lugar de DRIVE_FILE
         GoogleCredentials credentials = GoogleCredentials.getApplicationDefault()
                 .createScoped(Collections.singletonList(DriveScopes.DRIVE));
+
         HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(credentials);
-
-        System.out.println("Credenciales: " + credentials);
-        System.out.println("Request initializer: " + requestInitializer);
-        System.out.println("File content type: " + file.getContentType());
-        System.out.println("File name: " + file.getOriginalFilename());
-        System.out.println("File size: " + file.getSize());
-
         // Construir el servicio Drive
-        Drive service = new Drive.Builder(new NetHttpTransport(),
+        Drive serviceDrive = new Drive.Builder(new NetHttpTransport(),
                 GsonFactory.getDefaultInstance(),
                 requestInitializer)
-                .setApplicationName("Drive samples")
+                .setApplicationName("guiahumanas")
                 .build();
+        return serviceDrive;
+    }
 
-        // Suponiendo que el archivo ya se subió a un directorio temporal o se ha preparado de alguna forma
-        // Si deseas subir directamente el archivo sin guardarlo localmente, ajusta esta parte.
-        String uploadDir = "uploads/";
-        String filePath = uploadDir + file.getOriginalFilename();
-
-        // Para este ejemplo, se asume que el archivo se ha guardado previamente en filePath.
-        java.io.File localFile = new java.io.File(filePath);
-        if (!localFile.exists()) {
-            // Si el archivo no existe localmente, podrías crearlo temporalmente:
-            localFile = convertMultipartFileToFile(file);
-        }
+    private File createDriveFile(MultipartFile file, Drive serviceDrive) throws IOException {
+        // archivo File temporal necesario para la signatura de los servicios posteriores
+        java.io.File localFile = convertMultipartFileToFile(file);
 
         // Metadata para el archivo
         File fileMetadata = new File();
         fileMetadata.setName(file.getOriginalFilename());
-        //fileMetadata.setWebViewLink(filePath);
+        System.out.println("file content type: "+file.getContentType());
+        FileContent content = new FileContent(file.getContentType(), localFile);
 
-        FileContent mediaContent = new FileContent(file.getContentType(), localFile);
         try {
-            File newFile = service.files().create(fileMetadata, mediaContent)
+            //creamos el archivo de Drive
+            File newFile = serviceDrive.files().create(fileMetadata, content)
                     .setFields("id, webViewLink")
                     .execute();
-            System.out.println("File ID: " + newFile.getId());
-            // Aquí puedes guardar la URL en la base de datos
-            DocumentFile f = new DocumentFile();
-            f.setName(newFile.getName());
-            f.setUrl(newFile.getWebViewLink());
-            f.setType(FileType.PARCIAL);
-            f.setSubjectId(null);
-            f.setUploadDate(null);
-            f.setMonth("abril");
-            fileRepository.save(f);
 
-            //chequeamos que haya salido ok la cosa
-            File fetchedFile = service.files().get("1aFBxRJeQctYPBqCvuS4jkVYbKiyD2r1Z")
+            System.out.println("File ID: " + newFile.getId());
+
+            //Hacemos un fetch para asegurarnos que exista
+            File fetchedFile = serviceDrive.files().get(newFile.getId())
                     .setFields("id, name, mimeType, webViewLink, permissions")
                     .execute();
 
+            //preparamos el scope de los permisos
             Permission permission = new Permission()
                     .setType("anyone")
                     .setRole("reader");
 
-            service.permissions().create(fetchedFile.getId(), permission)
+            //seteamos los permisos al archivo recientemente creado y fetcheado
+            serviceDrive.permissions().create(fetchedFile.getId(), permission)
                     .execute();
-
-            System.out.println("File ID: " + fetchedFile.getId());
-            System.out.println("File Name: " + fetchedFile.getName());
-            System.out.println("File MIME Type: " + fetchedFile.getMimeType());
-            System.out.println("File Web View Link: " + fetchedFile.getWebViewLink());
-            //return newFile.getId();
+            System.out.println(fetchedFile.getWebViewLink());
+            return fetchedFile;
         } catch (GoogleJsonResponseException e) {
             System.err.println("Unable to upload file: " + e.getDetails());
+            throw e;
+        }
+
+    }
+
+    public DocumentFile saveFile(MultipartFile file, String carrera, String catedra, FileType tipo, Integer anio, String llamado) throws IOException {
+        Drive serviceDrive = generateDriveService();
+        try {
+            File driveFile = createDriveFile(file, serviceDrive);
+
+            // persistimos en la base relacional con nuestros parametros
+            DocumentFile f = new DocumentFile();
+            f.setName(file.getOriginalFilename());
+            f.setUrl(driveFile.getWebViewLink());
+            f.setType(tipo);
+            f.setSubjectId(null); //hay que traer el id de la catedra
+            f.setUploadDate(null);
+            f.setMonth(llamado);
+           return fileRepository.save(f);
+        } catch (Error e) {
+            System.err.println("Unable to create file Drive");
             throw e;
         }
     }
@@ -156,41 +156,5 @@ public class FileService {
             fDto.setMajors(majorsBySubject);
         }
         return resp;
-    }
-
-    public void uploadBasic() throws IOException {
-        // Load pre-authorized user credentials from the environment.
-        // TODO(developer) - See https://developers.google.com/identity for
-        // guides on implementing OAuth2 for your application.
-        GoogleCredentials credentials = GoogleCredentials.getApplicationDefault()
-                .createScoped(Arrays.asList(DriveScopes.DRIVE));
-        HttpRequestInitializer requestInitializer = new HttpCredentialsAdapter(
-                credentials);
-
-        System.out.println("Credenciales: " + credentials);
-
-        // Build a new authorized API client service.
-        Drive service = new Drive.Builder(new NetHttpTransport(),
-                GsonFactory.getDefaultInstance(),
-                requestInitializer)
-                .setApplicationName("Drive samples")
-                .build();
-        // Upload file photo.jpg on drive.
-        File fileMetadata = new File();
-        fileMetadata.setName("photo.jpg");
-        // File's content.
-        java.io.File filePath = new java.io.File("files/photo.jpg");
-        // Specify media type and file-path for file.
-        FileContent mediaContent = new FileContent("image/jpeg", filePath);
-        try {
-            File file = service.files().create(fileMetadata, mediaContent)
-                    .setFields("id")
-                    .execute();
-            System.out.println("File ID: " + file.getId());
-        } catch (GoogleJsonResponseException e) {
-            // TODO(developer) - handle error appropriately
-            System.err.println("Unable to upload file: " + e.getDetails());
-            throw e;
-        }
     }
 }

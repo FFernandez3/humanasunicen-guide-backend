@@ -45,14 +45,12 @@ public class FileController {
                                       @RequestParam("tipo") FileType tipo,
                                       @RequestParam(value = "anio", required = false) Integer anio,
                                       @RequestParam(value = "llamado", required = false) String llamado) throws IOException {
-        this.fileService.saveFile(file, carrera, catedra, tipo, anio, llamado);
-        return ResponseEntity.ok("response");
-    }
-
-    @PostMapping
-    public ResponseEntity<?> uploadBasic() throws IOException {
-        this.fileService.uploadBasic();
-        return ResponseEntity.ok("ok");
+        DocumentFile f = this.fileService.saveFile(file, carrera, catedra, tipo, anio, llamado);
+        if (f.getId() != null) {
+            return ResponseEntity.ok("archivo creado y persistido exitosamente");
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping("/table")
