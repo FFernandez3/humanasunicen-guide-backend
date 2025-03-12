@@ -12,6 +12,7 @@ import org.humanas.guia.entities.DocumentFile;
 import org.humanas.guia.entities.Major;
 import org.humanas.guia.enums.FileMonth;
 import org.humanas.guia.enums.FileType;
+import org.humanas.guia.helpers.FileNameTemplate;
 import org.humanas.guia.repositories.FileRepository;
 import org.humanas.guia.repositories.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,8 @@ import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.api.services.drive.model.File;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -122,18 +125,25 @@ public class FileService {
 
     }
 
-    public DocumentFile saveFile(MultipartFile file, String carrera, String catedra, FileType tipo, Integer anio, String llamado) throws IOException {
+    private String generateFileName(String catedraId, FileType tipo, int anio, FileMonth llamado){
+        String subjName = subjectRepository.getSubjectNameById(Long.valueOf(catedraId));
+        FileNameTemplate fTempl = new FileNameTemplate(subjName, tipo, anio, llamado);
+        return fTempl.getFileTemplateName();
+    }
+
+    public DocumentFile saveFile(MultipartFile file, String catedraId, FileType tipo, Integer anio, FileMonth llamado) throws IOException {
         Drive serviceDrive = generateDriveService();
         try {
             File driveFile = createDriveFile(file, serviceDrive);
 
+            LocalDate todayDate = LocalDate.now(ZoneId.of("America/Argentina/Buenos_Aires"));
             // persistimos en la base relacional con nuestros parametros
             DocumentFile f = new DocumentFile();
-            f.setName(file.getOriginalFilename());
+            f.setName(generateFileName(catedraId, tipo, anio, llamado));
             f.setUrl(driveFile.getWebViewLink());
             f.setType(tipo);
-            f.setSubjectId(null); //hay que traer el id de la catedra
-            f.setUploadDate(null);
+            f.setSubjectId(Long.valueOf(catedraId));
+            f.setUploadDate(todayDate);
             f.setMonth(llamado);
            return fileRepository.save(f);
         } catch (Error e) {

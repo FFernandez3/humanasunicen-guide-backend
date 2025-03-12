@@ -5,6 +5,7 @@ import org.humanas.guia.dtos.FileMonthDTO;
 import org.humanas.guia.dtos.FileTableDTO;
 import org.humanas.guia.dtos.FileTypeDTO;
 import org.humanas.guia.entities.DocumentFile;
+import org.humanas.guia.enums.FileMonth;
 import org.humanas.guia.enums.FileType;
 import org.humanas.guia.services.FileService;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 @RestController
@@ -40,17 +43,24 @@ public class FileController {
 
     @PostMapping("/save")
     public ResponseEntity<?> saveFile(@RequestParam("file") MultipartFile file,
-                                      @RequestParam("carrera") String carrera,
-                                      @RequestParam("catedra") String catedra,
+                                      @RequestParam("catedra") String catedraId,
                                       @RequestParam("tipo") FileType tipo,
                                       @RequestParam(value = "anio", required = false) Integer anio,
-                                      @RequestParam(value = "llamado", required = false) String llamado) throws IOException {
-        DocumentFile f = this.fileService.saveFile(file, carrera, catedra, tipo, anio, llamado);
-        if (f.getId() != null) {
-            return ResponseEntity.ok("archivo creado y persistido exitosamente");
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
+                                      @RequestParam(value = "llamado", required = false) FileMonth llamado) throws IOException {
+        System.out.println(file);
+        System.out.println(catedraId);
+        System.out.println(tipo);
+        System.out.println(anio);
+        System.out.println(llamado);
+
+
+        //DocumentFile f = this.fileService.saveFile(file, catedraId, tipo, anio, llamado);
+//        if (f.getId() != null) {
+//            return ResponseEntity.ok("archivo creado y persistido exitosamente");
+//        } else {
+//            return ResponseEntity.badRequest().build();
+//        }
+        return ResponseEntity.ok("si");
     }
 
     @GetMapping("/table")

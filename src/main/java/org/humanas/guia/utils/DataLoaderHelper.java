@@ -3,6 +3,7 @@ package org.humanas.guia.utils;
 import org.humanas.guia.entities.DocumentFile;
 import org.humanas.guia.entities.Major;
 import org.humanas.guia.entities.Subject;
+import org.humanas.guia.enums.FileMonth;
 import org.humanas.guia.enums.FileType;
 import org.humanas.guia.repositories.FileRepository;
 import org.humanas.guia.repositories.MajorRepository;
@@ -85,9 +86,11 @@ public class DataLoaderHelper {
         for (String[] arch : files.subList(1, files.size())) {
             DocumentFile f = new DocumentFile();
             f.setName(arch[1]);
-            f.setUrl(arch[2]);
+            if (Objects.equals(arch[2], "")) f.setUrl(null);
+            else f.setUrl(arch[2]);
             f.setType(FileType.valueOf(arch[3]));
-            f.setMonth(arch[4]); //llamado
+            if (Objects.equals(arch[4], "")) f.setMonth(null); //llamado
+            else f.setMonth(FileMonth.valueOf(arch[4])); //llamado
             f.setSubjectId(Long.valueOf(arch[5]));
             f.setUploadDate(null);
             fileRepository.save(f);

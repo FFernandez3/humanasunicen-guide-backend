@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.humanas.guia.enums.FileMonth;
 import org.humanas.guia.enums.FileType;
 
 
@@ -23,8 +24,8 @@ public class DocumentFile {
     private String name;
     private String url;
     private Long subjectId;
+    @Column(nullable = false)
     private FileType type;
     private LocalDate uploadDate;
-    @Column(nullable = false)
-    private String month;
+    private FileMonth month;
 }

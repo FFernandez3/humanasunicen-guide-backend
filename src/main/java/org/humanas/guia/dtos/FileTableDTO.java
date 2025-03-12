@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.humanas.guia.entities.Major;
+import org.humanas.guia.enums.FileMonth;
 import org.humanas.guia.enums.FileType;
 
 import java.time.LocalDate;
@@ -22,9 +23,9 @@ public class FileTableDTO {
     private FileType type;
     private LocalDate uploadDate;
     private String url;
-    private String month;
+    private FileMonth month;
 
-    public FileTableDTO(Long id, Long subjectId, String name, String subject, Integer quarter, FileType type, LocalDate uploadDate, String url, String month) {
+    public FileTableDTO(Long id, Long subjectId, String name, String subject, Integer quarter, FileType type, LocalDate uploadDate, String url, FileMonth month) {
         this.id = id;
         this.subjectId = subjectId;
         this.name = name;

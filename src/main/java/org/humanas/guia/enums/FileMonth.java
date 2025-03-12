@@ -1,6 +1,7 @@
 package org.humanas.guia.enums;
 
 public enum FileMonth {
+    NULL,
     FEBRERO,
     MARZO,
     ABRIL,
@@ -9,7 +10,7 @@ public enum FileMonth {
     JULIO,
     AGOSTO,
     SEPTIEMBRE,
-    OCTUMBRE,
+    OCTUBRE,
     NOVIEMBRE,
     DICIEMBRE,
 }
