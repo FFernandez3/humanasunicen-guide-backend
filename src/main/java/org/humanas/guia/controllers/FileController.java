@@ -47,20 +47,13 @@ public class FileController {
                                       @RequestParam("tipo") FileType tipo,
                                       @RequestParam(value = "anio", required = false) Integer anio,
                                       @RequestParam(value = "llamado", required = false) FileMonth llamado) throws IOException {
-        System.out.println(file);
-        System.out.println(catedraId);
-        System.out.println(tipo);
-        System.out.println(anio);
-        System.out.println(llamado);
 
-
-        //DocumentFile f = this.fileService.saveFile(file, catedraId, tipo, anio, llamado);
-//        if (f.getId() != null) {
-//            return ResponseEntity.ok("archivo creado y persistido exitosamente");
-//        } else {
-//            return ResponseEntity.badRequest().build();
-//        }
-        return ResponseEntity.ok("si");
+        DocumentFile f = this.fileService.saveFile(file, catedraId, tipo, anio, llamado);
+        if (f.getId() != null) {
+            return ResponseEntity.ok("archivo creado y persistido exitosamente");
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping("/table")
