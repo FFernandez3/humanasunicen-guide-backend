@@ -44,10 +44,11 @@ public class SubjectController {
         return ResponseEntity.ok(this.service.getAllSubjectsNames());
     }
 
-    @GetMapping("name/{name}")
-    public Subject getSubjectByName(@PathVariable String subjectName){
+    @GetMapping("name/{subjectName}")
+    public ResponseEntity<Subject> getSubjectByName(@PathVariable String subjectName){
+        System.out.println(subjectName);
         Subject subj = this.service.getSubjectByName(subjectName);
-        return ResponseEntity.ok(subj).getBody();
+        return ResponseEntity.ok(subj);
     }
 
     @GetMapping("/{idSubject}")
