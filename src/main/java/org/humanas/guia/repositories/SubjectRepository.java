@@ -20,4 +20,7 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
 
     @Query("SELECT s.majors from Subject s WHERE s.id = :subjectId")
     List<Major> getMajorsBy(Long subjectId);
+
+    @Query("SELECT s from Subject s WHERE s.name = :subjectName")
+    Subject getSubjectByName(String subjectName);
 }

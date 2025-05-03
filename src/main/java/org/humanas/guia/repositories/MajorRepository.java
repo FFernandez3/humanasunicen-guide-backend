@@ -13,5 +13,7 @@ public interface MajorRepository extends JpaRepository<Major, Long> {
     @Query("SELECT m.name FROM Major m")
     List<String> getMajorsNames();
 
+    @Query("SELECT m FROM Major m WHERE m.name = :majorName")
+    Major getMajorByName(String majorName);
 }
 

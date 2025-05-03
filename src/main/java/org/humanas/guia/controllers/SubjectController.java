@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.humanas.guia.dtos.SubjectRequestDTO;
 import org.humanas.guia.dtos.SubjectResponseDTO;
 import org.humanas.guia.dtos.SubjectYearDTO;
+import org.humanas.guia.entities.Major;
 import org.humanas.guia.entities.Subject;
 import org.humanas.guia.services.SubjectService;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +42,12 @@ public class SubjectController {
     @GetMapping("/names")
     public ResponseEntity<List<String>> getAllSubjectsNames(){
         return ResponseEntity.ok(this.service.getAllSubjectsNames());
+    }
+
+    @GetMapping("name/{name}")
+    public Subject getSubjectByName(@PathVariable String subjectName){
+        Subject subj = this.service.getSubjectByName(subjectName);
+        return ResponseEntity.ok(subj).getBody();
     }
 
     @GetMapping("/{idSubject}")

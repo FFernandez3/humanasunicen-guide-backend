@@ -26,4 +26,8 @@ public class MajorService {
         return this.majorRepository.getMajorsNames();
     }
 
+    public Major getMajorName(String majorName){
+        return this.majorRepository.getMajorByName(majorName);
+    }
+
 }

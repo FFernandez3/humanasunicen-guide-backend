@@ -71,4 +71,6 @@ public class SubjectServiceImpl implements SubjectService {
     public String getSubjectNameById(Long id){
         return this.repository.getSubjectNameById(id);
     }
+
+    public Subject getSubjectByName(String subjectName) { return this.repository.getSubjectByName(subjectName);}
 }
